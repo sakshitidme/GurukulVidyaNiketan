@@ -1,0 +1,51 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: FrontEnd - Install Dependencies
+        working-directory: ./frontend
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+      - name: FrontEnd - Build
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Copy files via SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          source: "frontend/dist/,backend/,package.json,README.md"
+          target: "/var/www/html/my-project"
+          strip_components: 0
+
+      - name: Execute Server Scripts via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          script: |
+            cd /var/www/html/my-project/backend
+            npm install --production --legacy-peer-deps
+            pm2 restart backend || pm2 start server.js --name backend
+            pm2 save
