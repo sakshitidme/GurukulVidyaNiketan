@@ -31,7 +31,7 @@ jobs:
         with:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
-          key: ${{ secrets.HOSTINGER_KEY }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
           port: ${{ secrets.HOSTINGER_PORT }}
           source: "frontend/dist/,backend/,package.json,README.md"
           target: "/var/www/html/my-project"
@@ -42,7 +42,7 @@ jobs:
         with:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
-          key: ${{ secrets.HOSTINGER_KEY }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
           port: ${{ secrets.HOSTINGER_PORT }}
           script: |
             cd /var/www/html/my-project/backend
