@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+dist/
+build/
+*.mp4
+*.mov
+*.mp3
+.DS_Store
