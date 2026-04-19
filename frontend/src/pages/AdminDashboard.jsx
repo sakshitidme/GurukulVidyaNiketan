@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
     try {
       if (activeSection === 'admissions' || activeSection === 'overview') {
-        const response = await fetch('http://localhost:5000/api/admissions', {
+        const response = await fetch('/api/admissions', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.status === 401) handleLogout();
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
       }
 
       if (activeSection === 'reviews') {
-        const response = await fetch('http://localhost:5000/api/reviews/admin', {
+        const response = await fetch('/api/reviews/admin', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.status === 401) handleLogout();
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
   
   const handleReviewUpdate = async (id, status) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/reviews/admin/${id}`, {
+      const res = await fetch(`/api/reviews/admin/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
   const handleReviewDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this review?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/reviews/admin/${id}`, {
+      const res = await fetch(`/api/reviews/admin/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -259,13 +259,13 @@ const AdminDashboard = () => {
                           <td className="px-10 py-8">
                             <div className="flex items-center gap-4">
                               <a 
-                                href={adm.photos?.studentPhoto ? `http://localhost:5000/${adm.photos.studentPhoto}` : '#'} 
+                                href={adm.photos?.studentPhoto ? `/${adm.photos.studentPhoto}` : '#'} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="w-12 h-12 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center overflow-hidden border border-slate-100 hover:scale-110 transition-transform cursor-zoom-in"
                               >
                                 {adm.photos?.studentPhoto ? (
-                                  <img src={`http://localhost:5000/${adm.photos.studentPhoto}`} alt="Student" className="w-full h-full object-cover" />
+                                  <img src={`/${adm.photos.studentPhoto}`} alt="Student" className="w-full h-full object-cover" />
                                 ) : (
                                   <User size={20} />
                                 )}
@@ -473,13 +473,13 @@ const AdminDashboard = () => {
                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32" />
                    <div className="relative z-10 flex items-center gap-6">
                        <a 
-                         href={selectedAdmission.photos?.studentPhoto ? `http://localhost:5000/${selectedAdmission.photos.studentPhoto}` : '#'} 
+                         href={selectedAdmission.photos?.studentPhoto ? `/${selectedAdmission.photos.studentPhoto}` : '#'} 
                          target="_blank" 
                          rel="noopener noreferrer"
                          className="w-20 h-20 bg-white/10 rounded-3xl backdrop-blur-md flex items-center justify-center border border-white/20 overflow-hidden hover:scale-105 transition-transform cursor-zoom-in group"
                        >
                           {selectedAdmission.photos?.studentPhoto ? (
-                            <img src={`http://localhost:5000/${selectedAdmission.photos.studentPhoto}`} alt="Student" className="w-full h-full object-cover" />
+                            <img src={`/${selectedAdmission.photos.studentPhoto}`} alt="Student" className="w-full h-full object-cover" />
                           ) : (
                             <User size={40} className="text-white/80" />
                           )}
@@ -507,13 +507,13 @@ const AdminDashboard = () => {
                          <div className="space-y-4">
                             <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 flex items-center gap-4">
                                <a 
-                                 href={selectedAdmission.photos?.fatherPhoto ? `http://localhost:5000/${selectedAdmission.photos.fatherPhoto}` : '#'} 
+                                 href={selectedAdmission.photos?.fatherPhoto ? `/${selectedAdmission.photos.fatherPhoto}` : '#'} 
                                  target="_blank" 
                                  rel="noopener noreferrer"
                                  className="w-12 h-12 bg-blue-100/50 rounded-xl overflow-hidden shrink-0 border border-blue-100 cursor-zoom-in hover:scale-105 transition-transform group"
                                >
                                   {selectedAdmission.photos?.fatherPhoto ? (
-                                    <img src={`http://localhost:5000/${selectedAdmission.photos.fatherPhoto}`} alt="Father" className="w-full h-full object-cover" />
+                                    <img src={`/${selectedAdmission.photos.fatherPhoto}`} alt="Father" className="w-full h-full object-cover" />
                                   ) : (
                                     <div className="w-full h-full flex items-center justify-center text-blue-400"><User size={20} /></div>
                                   )}
@@ -526,13 +526,13 @@ const AdminDashboard = () => {
                             </div>
                             <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 flex items-center gap-4">
                                <a 
-                                 href={selectedAdmission.photos?.motherPhoto ? `http://localhost:5000/${selectedAdmission.photos.motherPhoto}` : '#'} 
+                                 href={selectedAdmission.photos?.motherPhoto ? `/${selectedAdmission.photos.motherPhoto}` : '#'} 
                                  target="_blank" 
                                  rel="noopener noreferrer"
                                  className="w-12 h-12 bg-pink-100/50 rounded-xl overflow-hidden shrink-0 border border-pink-100 cursor-zoom-in hover:scale-105 transition-transform group"
                                >
                                   {selectedAdmission.photos?.motherPhoto ? (
-                                    <img src={`http://localhost:5000/${selectedAdmission.photos.motherPhoto}`} alt="Mother" className="w-full h-full object-cover" />
+                                    <img src={`/${selectedAdmission.photos.motherPhoto}`} alt="Mother" className="w-full h-full object-cover" />
                                   ) : (
                                     <div className="w-full h-full flex items-center justify-center text-pink-600"><User size={20} /></div>
                                   )}

@@ -216,7 +216,7 @@ const Admissions = () => {
     setOtpStatus('sending');
     try {
       const parentName = formData.fatherName.firstName || formData.motherName.firstName || formData.studentName.firstName || 'Parent';
-      const res = await fetch('http://localhost:5000/api/admissions/send-otp', {
+      const res = await fetch('/api/admissions/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: formData.phone, name: parentName })
@@ -241,7 +241,7 @@ const Admissions = () => {
     }
     setOtpStatus('verifying');
     try {
-      const res = await fetch('http://localhost:5000/api/admissions/verify-otp', {
+      const res = await fetch('/api/admissions/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: formData.phone, otp: otpInput })
@@ -315,7 +315,7 @@ const Admissions = () => {
 
     try {
       // Step 2: Create Order in Backend
-      const orderResponse = await fetch('http://localhost:5000/api/admissions/create-order', {
+      const orderResponse = await fetch('/api/admissions/create-order', {
         method: 'POST',
       });
       const orderData = await orderResponse.json();
@@ -362,7 +362,7 @@ const Admissions = () => {
             data.append('razorpay_order_id', response.razorpay_order_id);
             data.append('razorpay_signature', response.razorpay_signature);
 
-            const submissionResponse = await fetch('http://localhost:5000/api/admissions', {
+            const submissionResponse = await fetch('/api/admissions', {
               method: 'POST',
               body: data
             });

@@ -16,7 +16,7 @@ const Testimonials = () => {
 
   const fetchApprovedReviews = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/reviews');
+      const res = await fetch('/api/reviews');
       const data = await res.json();
       setDynamicReviews(data);
     } catch (err) {
@@ -28,7 +28,7 @@ const Testimonials = () => {
     e.preventDefault();
     setIsSubmittingReview(true);
     try {
-      const res = await fetch('http://localhost:5000/api/reviews', {
+      const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reviewFormData)
